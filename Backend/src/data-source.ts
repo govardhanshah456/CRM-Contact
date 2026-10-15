@@ -14,6 +14,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME ?? "postgres",
   password: process.env.DB_PASSWORD ?? "postgres",
   database: process.env.DB_NAME ?? "crm_contact",
+  ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
   entities: [Contact, Tag, ContactActivity],
   migrations: [InitSchema1730000000000, AddContactSearchIndexes1730000000001],
   migrationsRun: true,
