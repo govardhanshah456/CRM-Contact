@@ -228,6 +228,7 @@ export function ContactsPage() {
                   onSort={setSort}
                 />
                 <th>Email</th>
+                <th>Phone</th>
                 <th>Company</th>
                 <th>Tags</th>
                 <SortHeader
@@ -255,6 +256,7 @@ export function ContactsPage() {
                     <Link to={`/contacts/${contact.id}`}>{contactName(contact)}</Link>
                   </td>
                   <td>{contact.email ?? "—"}</td>
+                  <td>{contact.phone ?? "—"}</td>
                   <td>{contact.company ?? "—"}</td>
                   <td>
                     {contact.tags.length === 0 ? (
