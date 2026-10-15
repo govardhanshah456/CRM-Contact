@@ -15,6 +15,7 @@ import {
   updateContact,
 } from "../api.ts";
 import type { Contact, ContactField } from "../types.ts";
+import { whenText } from "../when.tsx";
 
 const FIELDS: { key: ContactField; label: string; version: keyof Contact }[] = [
   { key: "first_name", label: "First name", version: "first_name_version" },
@@ -70,15 +71,11 @@ export function ContactDetailPage() {
           <p className="timestamps">
             <span>
               Created{" "}
-              <time dateTime={contactQuery.data.created_at}>
-                {new Date(contactQuery.data.created_at).toLocaleString()}
-              </time>
+              <time dateTime={contactQuery.data.created_at}>{whenText(contactQuery.data.created_at)}</time>
             </span>
             <span>
               Updated{" "}
-              <time dateTime={contactQuery.data.updated_at}>
-                {new Date(contactQuery.data.updated_at).toLocaleString()}
-              </time>
+              <time dateTime={contactQuery.data.updated_at}>{whenText(contactQuery.data.updated_at)}</time>
             </span>
           </p>
         </div>
@@ -145,9 +142,7 @@ export function ContactDetailPage() {
           {activitiesQuery.data.activities.map((activity) => (
             <li key={activity.id}>
               <span>{activity.action}</span>
-              <time dateTime={activity.created_at}>
-                {new Date(activity.created_at).toLocaleString()}
-              </time>
+              <time dateTime={activity.created_at}>{whenText(activity.created_at)}</time>
             </li>
           ))}
         </ul>

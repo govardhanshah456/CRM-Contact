@@ -11,8 +11,10 @@ import {
   listTags,
 } from "../api.ts";
 import type { ContactQuery } from "../types.ts";
+import { When } from "../when.tsx";
 
 const PAGE_SIZE = 20;
+type SortColumn = "name" | "created_at" | "updated_at";
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function ContactsPage() {
@@ -31,7 +33,7 @@ export function ContactsPage() {
 
   const query = readQuery(params);
 
-  function setSort(column: "name" | "created_at") {
+  function setSort(column: SortColumn) {
     const explicit = params.get("sortBy") === column;
     const order = params.get("order");
     setParams((current) => {
@@ -238,6 +240,13 @@ export function ContactsPage() {
                   order={params.get("order") === "desc" ? "desc" : "asc"}
                   onSort={setSort}
                 />
+                <SortHeader
+                  label="Updated"
+                  column="updated_at"
+                  active={params.get("sortBy") === "updated_at"}
+                  order={params.get("order") === "desc" ? "desc" : "asc"}
+                  onSort={setSort}
+                />
                 <th></th>
               </tr>
             </thead>
@@ -271,7 +280,12 @@ export function ContactsPage() {
                       </span>
                     )}
                   </td>
-                  <td>{new Date(contact.created_at).toLocaleDateString()}</td>
+                  <td>
+                    <When value={contact.created_at} />
+                  </td>
+                  <td>
+                    <When value={contact.updated_at} />
+                  </td>
                   <td className="row-end">
                     <button
                       type="button"
@@ -435,10 +449,10 @@ function SortHeader({
   onSort,
 }: {
   label: string;
-  column: "name" | "created_at";
+  column: SortColumn;
   active: boolean;
   order: "asc" | "desc";
-  onSort: (column: "name" | "created_at") => void;
+  onSort: (column: SortColumn) => void;
 }) {
   return (
     <th aria-sort={active ? (order === "asc" ? "ascending" : "descending") : "none"}>

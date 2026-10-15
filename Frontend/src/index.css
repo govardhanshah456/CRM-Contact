@@ -77,7 +77,7 @@ input[type="checkbox"] {
 }
 
 .app {
-  max-width: 1120px;
+  max-width: 1360px;
   margin: 0 auto;
   padding: 1.5rem 1.25rem 3rem;
 }
@@ -181,7 +181,7 @@ table {
 th,
 td {
   text-align: left;
-  padding: 0.75rem 0.85rem;
+  padding: 1rem 1.05rem;
   border-bottom: 1px solid #e8edf2;
   vertical-align: middle;
 }
@@ -216,6 +216,18 @@ th {
 .sort-header:hover,
 .sort-header.is-active {
   color: #1d4e89;
+}
+
+.when {
+  display: grid;
+  gap: 0.12rem;
+  white-space: nowrap;
+  line-height: 1.25;
+}
+
+.when span:last-child {
+  color: #7b8794;
+  font-size: 0.78rem;
 }
 
 tbody tr:last-child td {
